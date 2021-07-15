@@ -20,6 +20,7 @@ import com.AcademiaSpringBootAccenture.ProjetoBasicoSpringBoot.model.Professor;
 @RequestMapping(value="/users")
 public class UserController {
 
+	//Controller de Alunos
 	private List<Aluno> alunos = new ArrayList<Aluno>();
 	
 	@GetMapping("/viewAlunos")
@@ -32,24 +33,26 @@ public class UserController {
     public Aluno viewAluno(@PathVariable("cpf") String cpf) {
         Aluno procurado = null;
         for (Aluno aux : alunos) {
-        	if (aux.getCpf() == cpf) {
+        	if (aux.getCpf().equals(cpf)){
         		procurado = aux;
+        		System.out.println(procurado.toString());
         	}
         }
         return procurado;
     }
 	
-	@PutMapping("/updateAluno")
-    public String updateAluno(@PathVariable("cpf") String cpf, @RequestBody Aluno aluno) {
-		for (Aluno aux : alunos) {
-        	if (aux.getCpf() == cpf) {
-        		aux = aluno;
+	@PutMapping("/updateAluno/{cpf}")
+    public void updateAluno(@PathVariable("cpf") String cpf, @RequestBody Aluno aluno) {
+		for (int i=0 ; i < alunos.size(); i++) {
+			Aluno aux = alunos.get(i);
+        	if (aux.getCpf().equals(cpf)) {
+        		alunos.set(i, aluno);
+        		System.out.println("Aluno atualizado com sucesso!");
         	}
         }
-        return "Usuário atualizado com sucesso!";
     }
 	
-	@DeleteMapping("/deleteAluno")
+	@DeleteMapping("/deleteAluno/{cpf}")
     public void deleteAluno(@PathVariable("cpf") String cpf) {
 		int posicao = -1;
 		Aluno procurado=null;
@@ -69,7 +72,9 @@ public class UserController {
         return "Aluno inserido na lista com sucesso!";
     }
 	
-private List<Professor> professores = new ArrayList<Professor>();
+	
+	//Controller de Professores	
+	private List<Professor> professores = new ArrayList<Professor>();
 	
 	@GetMapping("/viewProfessores")
     public List<Professor> viewProfessores() {
@@ -81,19 +86,26 @@ private List<Professor> professores = new ArrayList<Professor>();
     public Professor viewProfessor(@PathVariable("cpf") String cpf) {
         Professor procurado = null;
         for (Professor aux : professores) {
-        	if (aux.getCpf() == cpf) {
+        	if (aux.getCpf().equals(cpf)) {
         		procurado = aux;
         	}
         }
         return procurado;
     }
 	
-	@PutMapping("/updateProfessor")
-    public String updateProfessor() {
-        return "Método UPDATE";
+	@PutMapping("/updateProfessor/{cpf}")
+    public void updateProfessor(@PathVariable("cpf") String cpf, @RequestBody Professor professor) {
+		for (int i=0 ; i < professores.size(); i++) {
+			Professor aux = professores.get(i);
+        	if (aux.getCpf().equals(cpf)) {
+        		professores.set(i, professor);
+        		System.out.println("Professor atualizado com sucesso!");
+        	}
+        }
+		
     }
 	
-	@DeleteMapping("/deleteProfessor")
+	@DeleteMapping("/deleteProfessor/{cpf}")
     public void deleteProfessor(@PathVariable("cpf") String cpf) {
 		int posicao = -1;
 		Professor procurado=null;
@@ -104,7 +116,7 @@ private List<Professor> professores = new ArrayList<Professor>();
 				break;
 			}
 		}
-		alunos.remove(posicao);
+		professores.remove(posicao);
     }
 	
 	@PostMapping("/createProfessor")
