@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +26,7 @@ public class AlunoController {
 	private AlunoRepository alunorepository;
 	private List<Aluno> alunos = new ArrayList<Aluno>();
 	
-	public AlunoController(AlunoRepository alunorepository){
+	public AlunoController(@Valid AlunoRepository alunorepository){
 		this.alunorepository=alunorepository;
 	}
 	
@@ -65,7 +67,7 @@ public class AlunoController {
     }
 	
 	@PostMapping("/createAluno")
-    public String createAluno(@RequestBody Aluno aluno) {
+    public String createAluno(@RequestBody @Valid Aluno aluno) {
 		alunorepository.save(aluno);
         return "Aluno inserido na lista com sucesso!";
     }
