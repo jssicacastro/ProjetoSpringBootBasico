@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +30,7 @@ public class ProfessorController {
 	private ProfessorRepository professorrepository;
 	private List<Professor> professores = new ArrayList<Professor>();
 	
-	public ProfessorController(ProfessorRepository professorrepository){
+	public ProfessorController( ProfessorRepository professorrepository){
 		this.professorrepository=professorrepository;
 	}
 	
@@ -69,7 +71,7 @@ public class ProfessorController {
     }
 	
 	@PostMapping("/createProfessor")
-    public String createProfessor(@RequestBody Professor professor) {
+    public String createProfessor(@RequestBody @Valid Professor professor) {
 		professorrepository.save(professor);
         return "Professor inserido na lista com sucesso!";
     }
