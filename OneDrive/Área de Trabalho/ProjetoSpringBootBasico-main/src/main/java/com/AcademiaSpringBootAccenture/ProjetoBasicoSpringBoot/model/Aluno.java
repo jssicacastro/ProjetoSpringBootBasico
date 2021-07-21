@@ -5,6 +5,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.br.CPF;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,8 +30,8 @@ public class Aluno {
 		@Id
 		@GeneratedValue(strategy=GenerationType.AUTO)
 		private int idaluno;
-		private String nome;
-		private String cpf;
-		private int idade;
-		private String curso;
+		@NotBlank(message = "o nome é obrigatório") @Length(min = 0, max = 30, message = "O nome deverá ter no máximo {max} caracteres") private String nome;	
+		@CPF private String cpf;
+		@Positive(message="A idade deve ser válida") private int idade;
+		@NotBlank(message = "o curso é obrigatório") private String curso;
 }
