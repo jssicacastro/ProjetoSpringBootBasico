@@ -38,14 +38,8 @@ public class CursoController {
     }
 	
 	@GetMapping("/viewCurso/{id}")
-    public String viewAluno(@PathVariable("id") int curso_id) {
-        Optional <Curso> cursoAchado = this.cursoRepository.findById(curso_id);
-        
-        if (cursoAchado.isPresent()) {
-        	return cursoAchado.toString();
-        }else {
-        	return "Curso não encontrado no banco de dados!";
-        }
+    public Optional<Curso> viewCurso(@PathVariable("id") int curso_id) {
+       return this.cursoRepository.findById(curso_id);
     }
 	
 	@PutMapping("/updateCurso/{id}")

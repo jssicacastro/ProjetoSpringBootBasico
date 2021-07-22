@@ -37,14 +37,8 @@ public class AlunoController {
     }
 	
 	@GetMapping("/viewAluno/{id}")
-    public String viewAluno(@PathVariable("id") int aluno_id) {
-		Optional <Aluno> alunoAchado = this.alunoRepository.findById(aluno_id);
-        
-        if (alunoAchado.isPresent()) {
-        	return alunoAchado.toString();
-        }else {
-        	return "Aluno não encontrado no banco de dados!";
-        }
+    public Optional <Aluno> viewAluno(@PathVariable("id") int aluno_id) {
+		return this.alunoRepository.findById(aluno_id);
     }
 	
 	@PutMapping("/updateAluno/{id}")

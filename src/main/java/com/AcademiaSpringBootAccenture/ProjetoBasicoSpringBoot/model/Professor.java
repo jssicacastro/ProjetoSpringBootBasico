@@ -26,12 +26,11 @@ import lombok.ToString;
 @ToString
 @Entity
 @Table
-@GroupSequence(Professor.class)
 public class Professor {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;		
+	private int professor_id;		
 	
 	@NotBlank(message = "o nome é obrigatório") 
 	@Length(min = 3, max = 30, message = "O nome deverá ter no máximo {max} caracteres")

@@ -42,14 +42,8 @@ public class ProfessorController {
 	
 	
 	@GetMapping("/viewProfessor/{id}")
-	public String viewProfessor(@PathVariable("id") int professor_id) {
-		Optional <Professor> professorAchado = this.professorRepository.findById(professor_id);
-        
-        if (professorAchado.isPresent()) {
-        	return professorAchado.toString();
-        }else {
-        	return "Professor não encontrado no banco de dados!";
-        }
+	public Optional <Professor> viewProfessor(@PathVariable("id") int professor_id) {
+		return this.professorRepository.findById(professor_id);
     }
 	
 	@PutMapping("/updateProfessor/{id}")
@@ -84,7 +78,7 @@ public class ProfessorController {
 	
 	@PostMapping("/createProfessor")
     public String createProfessor(@RequestBody @Valid Professor professor) {
-		this.professorRepository.save(professor);
+		professorRepository.save(professor);
         return "Professor inserido na lista com sucesso!";
     }
 }

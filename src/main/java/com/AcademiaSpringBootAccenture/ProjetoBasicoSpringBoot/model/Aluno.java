@@ -43,6 +43,7 @@ public class Aluno {
 		@Positive(message="A idade deve ser válida") 
 		private int idade;
 		
+		
 		@ManyToOne
 		@JoinColumn (name = "curso")
 		private Curso curso;
